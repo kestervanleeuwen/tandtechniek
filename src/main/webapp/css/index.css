@@ -1,0 +1,224 @@
+@import url('http://fonts.cdnfonts.com/css/tisa-sans-pro');
+*{
+    font-family: 'Tisa Sans Pro', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    position: relative;
+    margin: 0 5px;
+    height: 50px;
+    width: 100%;
+}
+
+.sidebar ul li .tooltip {
+    position: absolute;
+    height: 35px;
+    line-height: 35px;
+    width: 120px;
+    left: 120px;
+    top: 0;
+    text-align: center;
+    transform: translate(-40%, -50%);
+    border-radius: 6px  ;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: 0s;
+    opacity: 0;
+    pointer-events: none;
+    display: block;
+}
+
+.sidebar.active ul li .tooltip {
+    display: none;
+}
+
+.sidebar .sidebar-link {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active .sidebar-link {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar ul li:hover .tooltip {
+    transition: all 0.5s ease;
+    opacity: 1;
+    top: 50%;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    transition: 0.5s ease;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.sidebar ul li a:hover {
+    color: #333333;
+    background: white;
+}
+
+.sidebar ul li a i {
+    height: 50px;
+    min-width: 50px;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 50px;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 7px 15px;
+    background-color: #333333;
+    width: 60px;
+    height: 100%;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active {
+    width: 235px;
+}
+
+.sidebar .logo-body .logo {
+    color: white;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.sidebar.delayedActive .logo-body .logo {
+    opacity: 1;
+}
+
+.logo-body .logo img {
+    margin-right: 2px;
+}
+
+.logo-body .logo .logo-name {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.sidebar #menu {
+    position: absolute;
+    color: white;
+    top: 5px;
+    left: 50%;
+    height: 50px;
+    font-size: 25px;
+    min-width: 50px;
+    line-height: 50px;
+    text-align: center;
+    transform: translateX(-50%);
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active #menu {
+    left: 90%;
+}
+
+.sidebar .profile-body {
+    position: absolute;
+    color: white;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.sidebar .profile-body .profile {
+    position: relative;
+    padding: 6px 45px;
+    height: 60px;
+    background: none;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active .profile-body .profile {
+    background: #555555;
+}
+
+.sidebar.delayedActive .profile-body .profile .person {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar .profile-body .profile .person {
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.sidebar .profile-body .profile .person .person-name {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.sidebar .profile-body .profile .person .person-job {
+    font-size: 12px;
+    color: #77D22D;
+}
+
+.profile-body #log-out {
+    position: absolute;
+    left: 60%;
+    bottom: 25px;
+    transform: translateX(-75%);
+    min-width: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+    background: #555555;
+    text-align: center;
+}
+
+.sidebar.active .profile-body #log-out {
+    left: 88%;
+    background: none;
+}
+
+.home-body {
+    position: absolute;
+    height: 100%;
+    width: calc(100% - 100px);
+    left: 100px;
+    transition: all 0.5s ease;
+}
+
+.home-body h1 {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.sidebar.active ~ .home-body {
+    width: calc(100% - 285px);
+    left: 285px;
+}
