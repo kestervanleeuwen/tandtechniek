@@ -1,0 +1,83 @@
+.home-body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.opdracht-container {
+    background-color: white;
+    max-width: 700px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 7px;
+}
+
+.opdracht-container .title {
+    font-size: 25px;
+    font-weight: 400;
+    position: relative;
+}
+
+.opdracht-container .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 30px;
+}
+
+.opdracht-container form .opdracht-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+form .opdracht-details .input-box {
+    margin: 20px 0 15px 0;
+    width: calc(100% / 2 - 20px);
+}
+
+.opdracht-details .input-box .details {
+    display: block;
+    font-weight: 400;
+    margin-bottom: 5px ;
+}
+
+.opdracht-details .input-box input, .opdracht-details .input-box select {
+    height:  50px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 5px;
+    font-size: 15px;
+}
+
+.opdracht-details .input-box input:focus {
+    border-color: #77D22D;
+}
+
+.opdracht-details .input-box input:valid {
+    border-color: #77D22D;
+}
+
+form .button {
+    padding: 5px;
+}
+
+form #saveForm {
+    margin-left: 550px;
+    border-radius: 8px;
+    background-color: #333333;
+    color: white;
+    padding: 4px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-width: 5px;
+    border-color: #77D22D;
+    transition: all 0.5s ease;
+    cursor: pointer;
+
+}

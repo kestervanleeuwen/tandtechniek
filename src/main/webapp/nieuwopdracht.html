@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qua Opdrachten</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/nieuwopdracht.css">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link href="http://fonts.cdnfonts.com/css/tisa-sans-pro" rel="stylesheet">
+    <script type="text/javascript" src="/js/index.js" defer></script>
+
+    </script>
+</head>
+<body>
+<main>
+    <div class="sidebar">
+        <div class="logo-body">
+            <div class="logo">
+                <img src="/img/favicon.ico">
+                <div class="logo-name">ua Tandtechniek</div>
+            </div>
+            <i class='bx bx-menu' id="menu"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="index.html">
+                    <i class='bx bx-home'></i>
+                    <span class="sidebar-link">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+            <li>
+                <a href="opdrachten.html">
+                    <i class='bx bx-notepad'></i>
+                    <span class="sidebar-link">Opdrachten</span>
+                </a>
+                <span class="tooltip">Opdrachten</span>
+            </li>
+            <li>
+                <a href="opdrachten.html">
+                    <i class='bx bx-archive'></i>
+                    <span class="sidebar-link">Opdracht types</span>
+                </a>
+                <span class="tooltip">Opdracht types</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-user'></i>
+                    <span class="sidebar-link">Klanten</span>
+                </a>
+                <span class="tooltip">Klanten</span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-package' ></i>
+                    <span class="sidebar-link">Voorraad</span>
+                </a>
+                <span class="tooltip">Voorraad</span>
+            </li>
+        </ul>
+        <div class="profile-body">
+            <div class="profile">
+                <div class="person">
+                    <div class="person-name">Kester van Leeuwen</div>
+                    <div class="person-job">Senior Tandtechnicus</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="log-out"></i>
+        </div>
+    </div>
+    <div class="home-body">
+        <div class="opdracht-container">
+            <form id="nieuw-opdracht">
+                <div class="title">Nieuwe opdracht</div>
+                <div class="opdracht-details">
+                    <div class="input-box">
+                        <span class="details">Opdrachtnaam</span>
+                        <input type="select" name="opdrachtNaam" placeholder="Opdrachtnaam" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Omschrijving</span>
+                        <input type="text" name="omschrijving" placeholder="Omschrijving" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Startdatum</span>
+                        <input type="date" name="startDatum">
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Einddatum</span>
+                        <input type="date" name="eindDatum">
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Tandtechnicus</span>
+                        <select id="tandards" name="tandarts">
+                            <option value="" default selected>Select your tandarts</option>
+                        </select>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Klant</span>
+                        <select id="klant" name="klant">
+                            <option value="" default selected>Select your klant</option>
+                        </select>
+                    </div>
+                </div>
+                    <input id="saveForm" type="submit" value="Save" >
+
+            </form>
+        </div>
+    </div>
+</main>
+<script>
+    document.getElementById('saveForm').addEventListener("click", () => {
+        var formData = new FormData(document.querySelector('form'));
+        var encData = Object.fromEntries(formData.entries());
+
+        var fetchOptions = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(encData)
+        }
+        console.log(encData.toString());
+
+        fetch('http://localhost:8080/opdracht', fetchOptions)
+            .then((res) => {
+                if (res.status == 201) {
+                    window.alert("Opdracht aangemaakt. Je keert nu terug naar het opdrachten scherm.");
+                    location.href = "opdrachten.html";
+                } else {
+                    window.alert("error");
+                }
+            })
+    })
+</script>
+</body>
+</html>

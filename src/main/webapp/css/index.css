@@ -20,6 +20,7 @@
 .sidebar ul li .tooltip {
     position: absolute;
     height: 35px;
+    z-index: 3;
     line-height: 35px;
     width: 120px;
     left: 120px;
@@ -52,6 +53,7 @@
 
 .sidebar ul li:hover .tooltip {
     transition: all 0.5s ease;
+    z-index: 99;
     opacity: 1;
     top: 50%;
 }
@@ -82,7 +84,6 @@
 body {
     position: relative;
     width: 100%;
-    overflow: hidden;
     min-height: 100vh;
 }
 
@@ -91,6 +92,7 @@ body {
     top: 0;
     left: 0;
     padding: 7px 15px;
+    z-index: 99;
     background-color: #333333;
     width: 60px;
     height: 100%;
@@ -207,18 +209,21 @@ body {
 
 .home-body {
     position: absolute;
-    height: 100%;
-    width: calc(100% - 100px);
-    left: 100px;
+    min-height: 100%;
+    width: calc(100% - 90px);
+    z-index: 2;
+    left: 90px;
     transition: all 0.5s ease;
+    background-color: #CCCCCC;
 }
 
 .home-body h1 {
     font-size: 30px;
     font-weight: 500;
+    margin-left: 10px;
 }
 
 .sidebar.active ~ .home-body {
-    width: calc(100% - 285px);
-    left: 285px;
+    width: calc(100% - 265px);
+    left: 265px;
 }

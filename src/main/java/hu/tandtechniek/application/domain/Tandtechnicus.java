@@ -2,6 +2,7 @@ package hu.tandtechniek.application.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class Tandtechnicus {
     private String achternaam;
     @Column
     private int salarisPerUur;
-    @OneToMany
+    @OneToMany(mappedBy = "tandtechnicus", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Opdracht> opdrachten;
 
     public Tandtechnicus(String voornaam, String achternaam, int salarisPerUur) {

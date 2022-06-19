@@ -2,6 +2,7 @@ package hu.tandtechniek.application.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class Klant {
     @Column
     private String postcode;
     @OneToMany
+    @JsonIgnore
     private List<Opdracht> opdrachten;
 
     public Klant(String vn, String an, String bn, String email,
