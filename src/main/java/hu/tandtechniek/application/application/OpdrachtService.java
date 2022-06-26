@@ -30,7 +30,7 @@ public class OpdrachtService {
         this.klantRepository = klantRepository;
     }
 
-    public Optional<Opdracht> findOpdrachtById(int id) {
+    public Opdracht findOpdrachtById(int id) {
         return opdrachtRepository.findByOpdrachtNummer(id);
     }
 
@@ -48,6 +48,7 @@ public class OpdrachtService {
         Opdracht opdracht = new Opdracht(opdrachtNaam, omschrijving);
         Klant klant = klantRepository.findByKlantId(klantId);
         Tandtechnicus tandtechnicus = tandtechnicusRepository.findByTandtechnicusId(tandtechnicusId);
+
         opdracht.setStartDatum(startdatum);
         opdracht.setEindDatum(einddatum);
         opdracht.setKlant(klant);
@@ -56,8 +57,30 @@ public class OpdrachtService {
         return opdrachtRepository.save(opdracht);
     }
 
-    public void deleteOpdracht(Opdracht opdracht) {
+    public Opdracht updateOpdracht(int opdrachtNummer, String opdrachtNaam, String omschrijving, Date startdatum, Date einddatum, int klantId,
+                                   int tandtechnicusId) {
+        Opdracht opdracht = opdrachtRepository.findByOpdrachtNummer(opdrachtNummer);
+        Klant klant = klantRepository.findByKlantId(klantId);
+        Tandtechnicus tandtechnicus = tandtechnicusRepository.findByTandtechnicusId(tandtechnicusId);
+
+        opdracht.setOpdrachtNaam(opdrachtNaam);
+        opdracht.setOmschrijving(omschrijving);
+        opdracht.setStartDatum(startdatum);
+        opdracht.setEindDatum(einddatum);
+        opdracht.setKlant(klant);
+        opdracht.setTandtechnicus(tandtechnicus);
+
+        return opdrachtRepository.save(opdracht);
+    }
+
+    public void deleteOpdracht(int id) {
+        Opdracht opdracht = opdrachtRepository.findByOpdrachtNummer(id);
         opdrachtRepository.delete(opdracht);
+    }
+    public Opdracht finishOpdracht(int id) {
+        Opdracht opdracht = opdrachtRepository.findByOpdrachtNummer(id);
+        opdracht.finishOpdracht();
+        return opdrachtRepository.save(opdracht);
     }
 
 

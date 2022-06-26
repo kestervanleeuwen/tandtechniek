@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080")
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private final String secret;

@@ -70,7 +70,8 @@ form .button {
 form #saveForm {
     margin-left: 550px;
     border-radius: 8px;
-    background-color: #333333;
+    transform: translateY(95%);
+    background-color: #77D22D;
     color: white;
     padding: 4px;
     padding-left: 30px;
@@ -79,5 +80,32 @@ form #saveForm {
     border-color: #77D22D;
     transition: all 0.5s ease;
     cursor: pointer;
+}
 
+.opdracht-container #deleteButton {
+    position: relative;
+    margin-left: 50px;
+    border-radius: 8px;
+    background-color: red;
+    color: white;
+    padding: 4px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-width: 5px;
+    border-color: red;
+    cursor: pointer;
+}
+
+.opdracht-container #finishButton {
+    position: relative;
+    margin-left: 120px;
+    border-radius: 8px;
+    background-color: dodgerblue;
+    color: white;
+    padding: 4px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-width: 5px;
+    border-color: dodgerblue;
+    cursor: pointer;
 }

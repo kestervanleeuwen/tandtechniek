@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("opdracht")
-@Secured("ROLE_USER")
 public class OpdrachtController {
     @Autowired private OpdrachtService opdrachtService;
 
@@ -32,10 +31,49 @@ public class OpdrachtController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/update")
+    public ResponseEntity<Opdracht> updateOpdracht(@Valid @RequestBody OpdrachtDTO opdrachtDTO) {
+        opdrachtService.updateOpdracht (
+                opdrachtDTO.opdrachtNummer,
+                opdrachtDTO.opdrachtNaam,
+                opdrachtDTO.omschrijving,
+                opdrachtDTO.startDatum,
+                opdrachtDTO.eindDatum,
+                opdrachtDTO.klantId,
+                opdrachtDTO.tandtechnicusId
+        );
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
     @GetMapping
     public ResponseEntity<List<Opdracht>> getOpdrachten() {
         List<Opdracht> opdrachten = opdrachtService.findAllOpdrachten();
         return ResponseEntity.ok(opdrachten);
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Opdracht> getOpdrachtById(@PathVariable int id) {
+        Opdracht opdracht = opdrachtService.findOpdrachtById(id);
+        if (opdracht == null) {
+            return new ResponseEntity("opdracht met id: " + id + " is niet gevonden", HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(opdracht);
+    }
+
+    @PostMapping(value = "/finish/{id}")
+    public ResponseEntity<Opdracht> finishOpdracht(@PathVariable int id) {
+        Opdracht opdracht = opdrachtService.finishOpdracht(id);
+        return ResponseEntity.ok(opdracht);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Opdracht> deleteOpdracht(@PathVariable int id) {
+        Opdracht opdracht = opdrachtService.findOpdrachtById(id);
+        if (opdracht == null) {
+            return new ResponseEntity("opdracht met id: " + id + " niet gevonden", HttpStatus.NOT_FOUND);
+        }
+        opdrachtService.deleteOpdracht(id);
+        return new ResponseEntity("Opdracht verwijderd", HttpStatus.OK);
+    }
 }

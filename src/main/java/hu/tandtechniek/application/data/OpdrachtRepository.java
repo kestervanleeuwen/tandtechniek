@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OpdrachtRepository extends JpaRepository<Opdracht, String> {
-    Optional<Opdracht> findByOpdrachtNummer(Integer id);
+    Opdracht findByOpdrachtNummer(Integer id);
     List<Opdracht> findAllByTandtechnicus(Tandtechnicus tandtechnicus);
 }

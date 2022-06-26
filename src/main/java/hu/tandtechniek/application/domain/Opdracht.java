@@ -73,9 +73,11 @@ public class Opdracht {
 
     public void finishOpdracht() {
         status = "closed";
-        for (OpdrachtType opdrachtType : opdrachtTypes) {
-            for (Voorraad voorraad : opdrachtType.getVoorraad()) {
-                voorraad.setInVoorraad(voorraad.getInVoorraad() - voorraad.getAantal());
+        if (opdrachtTypes.size() > 0) {
+            for (OpdrachtType opdrachtType : opdrachtTypes) {
+                for (Voorraad voorraad : opdrachtType.getVoorraad()) {
+                    voorraad.setInVoorraad(voorraad.getInVoorraad() - voorraad.getAantal());
+                }
             }
         }
     }

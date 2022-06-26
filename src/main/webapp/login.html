@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qua Opdrachten</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link href="http://fonts.cdnfonts.com/css/tisa-sans-pro" rel="stylesheet">
+</head>
+<body>
+<main>
+    <div class="body">
+    <div class="login-container">
+        <form id="nieuw-login">
+            <div class="title">Inloggen</div>
+            <div class="login-details">
+                <div class="input-box">
+                    <span class="details">Gebruikersnaam</span>
+                    <input id="username-input" type="text" name="username" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Wachtwoord</span>
+                    <input id="wachtwoord-input" type="password" name="password" required>
+                </div>
+            </div>
+            <input id="saveForm" type="submit" value="Save" >
+
+        </form>
+    </div>
+    </div>
+
+    <script>
+        function login(event) {
+            event.preventDefault();
+
+            let formData = new FormData(document.querySelector("#nieuw-login"));
+            var encData = Object.fromEntries(formData.entries());
+
+            var fetchOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(encData)
+            }
+
+            fetch("http://localhost:8080/login", fetchOptions)
+                .then(function(response) {
+                    console.log("TEST");
+                    console.log(response.json());
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    else {
+                        window.alert("Onbekende gebruikersnaam en/of wachtwoord");
+                        document.getElementById("username-input").value = "";
+                        document.getElementById("wachtwoord-input").value = "";
+                    }
+                })
+                .then(myJson => {
+                    window.localStorage.setItem("auth", myJson.JWT);
+                })
+                .catch(error => console.log(error));
+
+        }
+        document.querySelector("#saveForm").addEventListener("click", login);
+
+    </script>
+</main>

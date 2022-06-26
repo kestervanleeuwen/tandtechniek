@@ -80,22 +80,23 @@
             <div class="opdracht-body">
                 <div class="finished-div">
                     <div class="title">Afgemaakte opdrachten</div>
-                    <ul class="finished-list">
+                    <div class="finished-list">
 
-                    </ul>
+                    </div>
                 </div>
                 <div class="todo-div">
                     <div class="title">Nieuwe opdrachten</div>
-                    <ul class="todo-list">
+                    <div class="todo-list">
 
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
 <script>
-    const ul = document.querySelector('.todo-list');
+    const todoList = document.querySelector('.todo-list');
+    const finishedList = document.querySelector('.finished-list');
     const list = document.createDocumentFragment();
 
     fetch('http://localhost:8080/opdracht')
@@ -103,15 +104,38 @@
         return res.json();
     }).then((data) => {
         let openOpdrachten = data.filter((opdracht) => opdracht.status == 'open')
+        let finishedOpdrachten = data.filter((opdracht) => opdracht.status == 'closed')
 
-        openOpdrachten.forEach((opdracht) => {
-            let li = document.createElement('li');
+        finishedOpdrachten.forEach((opdracht) => {
+            let button = document.createElement('BUTTON');
             let opdrachtNaam = document.createElement('span');
 
-            opdrachtNaam.innerHTML = `${opdracht.opdrachtNaam}`;
+            opdrachtNaam.innerHTML = `ID: ${opdracht.opdrachtNummer}: ${opdracht.opdrachtNaam}`;
 
-            li.appendChild(opdrachtNaam);
-            ul.appendChild(li);
+            button.appendChild(opdrachtNaam);
+            finishedList.appendChild(button);
+
+            button.addEventListener("click", () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set("opdrachtNummer", opdracht.opdrachtNummer);
+                window.open("opdracht.html?" + urlParams, "_self");
+            });
+        })
+
+        openOpdrachten.forEach((opdracht) => {
+            let button = document.createElement('BUTTON');
+            let opdrachtNaam = document.createElement('span');
+
+            opdrachtNaam.innerHTML = `ID: ${opdracht.opdrachtNummer}: ${opdracht.opdrachtNaam}`;
+
+            button.appendChild(opdrachtNaam);
+            todoList.appendChild(button);
+
+            button.addEventListener("click", () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set("opdrachtNummer", opdracht.opdrachtNummer);
+                window.open("opdracht.html?" + urlParams, "_self");
+            });
         })
     }).catch(function (e) {
         console.log(e);

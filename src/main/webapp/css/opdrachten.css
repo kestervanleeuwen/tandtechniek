@@ -40,3 +40,39 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.todo-list button {
+    background-color: #77D22D;
+    border: 1.5px solid black;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 100%;
+    display: block;
+    margin-bottom: 1px;
+}
+
+.finished-list button {
+    background-color: #555555;
+    border: 1.5px solid black;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 100%;
+    display: block;
+    margin-bottom: 1px;
+}
+
+.todo-list button:hover {
+    background-color: white;
+    color: black;
+    border: 1.5px solid #77D22D
+}
+
+.finished-list button:hover {
+    background-color: white;
+    color: black;
+    border: 1.5px solid #555555;
+}

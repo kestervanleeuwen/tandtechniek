@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@CrossOrigin(origins = "http://localhost:8080")
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements ApplicationContextAware {
     public final static String LOGIN_PATH = "/login";
     public final static String REGISTER_PATH = "/register";
@@ -43,11 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
                 .antMatchers(HttpMethod.GET, "/users/**").permitAll()
 
                 /*Frontend*/
-                .antMatchers("/").permitAll()
                 .antMatchers("/image/**").permitAll()
-                .antMatchers("/js/**", "/css/**", "/img/**","/#/**").permitAll()
+                .antMatchers("/js/**", "/css/**", "/img/**","/**").permitAll()
 
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
+
                 .and()
                 .addFilterBefore(
                         jwtAuthenticationFilter(),
@@ -83,4 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
         return source;
     }
 
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("*");
+    }
 }
