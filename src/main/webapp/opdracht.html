@@ -187,7 +187,14 @@
     })
 
     document.getElementById("finishButton").addEventListener("click", () => {
-        fetch('http://localhost:8080/opdracht/finish/' + opdrachtNummer, {method: 'POST'})
+        var fetchOptions = {
+            method: 'POST',
+            headers: {
+                "Authorization": localStorage.getItem("auth"),
+            }
+        }
+
+        fetch('http://localhost:8080/opdracht/finish/' + opdrachtNummer, fetchOptions)
             .then((res) => {
                 if (res.status == 201) {
                     console.log("success");

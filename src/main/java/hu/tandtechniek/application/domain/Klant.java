@@ -60,6 +60,4 @@ public class Klant {
         return adres + " " + postcode + " " + plaats;
     }
 
-
-
 }
