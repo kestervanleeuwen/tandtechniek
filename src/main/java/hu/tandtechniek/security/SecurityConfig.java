@@ -22,6 +22,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+import java.util.Arrays;
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @CrossOrigin(origins = "http://localhost:8080")
@@ -46,9 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
 
                 /*Frontend*/
                 .antMatchers("/image/**").permitAll()
-                .antMatchers("/js/**", "/css/**", "/img/**","/**").permitAll()
+                .antMatchers("/js/**", "/css/**", "/img/**", "/**").permitAll()
 
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
 
                 .and()
                 .addFilterBefore(
@@ -79,13 +81,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        corsConfiguration.addExposedHeader("Authorization");
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("x-auth-token"));
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*");
-    }
 }

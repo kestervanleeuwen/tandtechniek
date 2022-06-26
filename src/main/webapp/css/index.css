@@ -202,6 +202,11 @@ body {
     text-align: center;
 }
 
+#logoutButton {
+    color: white;
+    cursor: pointer;
+}
+
 .sidebar.active .profile-body #log-out {
     left: 88%;
     background: none;

@@ -25,7 +25,7 @@
                     <input id="wachtwoord-input" type="password" name="password" required>
                 </div>
             </div>
-            <input id="saveForm" type="submit" value="Save" >
+            <input id="saveForm" onclick="return false" type="submit" value="Save" >
 
         </form>
     </div>
@@ -48,19 +48,15 @@
 
             fetch("http://localhost:8080/login", fetchOptions)
                 .then(function(response) {
-                    console.log("TEST");
-                    console.log(response.json());
-                    if (response.ok) {
-                        return response.json();
+                    if (response.status == 200  ) {
+                        localStorage.setItem("auth", response.headers.get("authorization"));
+                        window.open("index.html", "_self")
                     }
                     else {
                         window.alert("Onbekende gebruikersnaam en/of wachtwoord");
                         document.getElementById("username-input").value = "";
                         document.getElementById("wachtwoord-input").value = "";
                     }
-                })
-                .then(myJson => {
-                    window.localStorage.setItem("auth", myJson.JWT);
                 })
                 .catch(error => console.log(error));
 

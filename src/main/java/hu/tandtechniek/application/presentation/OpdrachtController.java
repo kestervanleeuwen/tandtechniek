@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("opdracht")
+@Secured("ROLE_USER")
 public class OpdrachtController {
     @Autowired private OpdrachtService opdrachtService;
 

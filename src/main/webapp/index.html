@@ -66,12 +66,22 @@
                         <div class="person-job">Senior Tandtechnicus</div>
                     </div>
                 </div>
-                <i class="bx bx-log-out" id="log-out"></i>
+                <button id="logoutButton"><i class="bx bx-log-out" id="log-out"></i></button>
             </div>
         </div>
         <div class="home-body">
             <h1>Tandtechnicus Admin</h1>
         </div>
     </main>
+<script>
+    if (!window.localStorage.getItem("auth")) {
+        window.open("login.html", "_self");
+    }
+
+    document.getElementById('logoutButton').addEventListener("click", () => {
+        localStorage.removeItem("auth");
+        window.open("login.html", "_self");
+    })
+</script>
 </body>
 </html>

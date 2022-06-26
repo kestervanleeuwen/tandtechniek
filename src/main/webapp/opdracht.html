@@ -66,7 +66,7 @@
                 <div class="person-job">Senior Tandtechnicus</div>
             </div>
         </div>
-        <i class="bx bx-log-out" id="log-out"></i>
+        <button id="logoutButton"><i class="bx bx-log-out" id="log-out"></i></button>
     </div>
 </div>
 <div class="home-body">
@@ -113,11 +113,22 @@
 </div>
 
 <script>
+    if (!window.localStorage.getItem("auth")) {
+        window.open("login.html", "_self");
+    }
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const opdrachtNummer = urlParams.get('opdrachtNummer');
 
-    fetch("http://localhost:8080/opdracht/" + opdrachtNummer)
+    var fetchOptions = {
+        method: 'GET',
+        headers: {
+            "Authorization": localStorage.getItem("auth"),
+        }
+    }
+
+    fetch("http://localhost:8080/opdracht/" + opdrachtNummer, fetchOptions)
         .then(response => Promise.all([response.status, response.json()]))
         .then(function ([status, myJson]) {
             if (status == 200) {
@@ -157,6 +168,7 @@
         var fetchOptions = {
             method: 'POST',
             headers: {
+                "Authorization": localStorage.getItem("auth"),
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newObj)
@@ -188,8 +200,17 @@
             })
     })
 
+
+
     document.getElementById("deleteButton").addEventListener("click", () => {
-        fetch('http://localhost:8080/opdracht/' + opdrachtNummer, {method: 'DELETE'})
+        var fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                "Authorization": localStorage.getItem("auth"),
+            }
+        }
+
+        fetch('http://localhost:8080/opdracht/' + opdrachtNummer, fetchOptions)
             .then((res) => {
                 if (res.status == 200) {
                     console.log("success");
@@ -200,6 +221,11 @@
             .catch(function (e) {
                 console.log(e);
             })
+    })
+
+    document.getElementById('logoutButton').addEventListener("click", () => {
+        localStorage.removeItem("auth");
+        window.open("login.html", "_self");
     })
 </script>
 </body>

@@ -67,7 +67,7 @@
                     <div class="person-job">Senior Tandtechnicus</div>
                 </div>
             </div>
-            <i class="bx bx-log-out" id="log-out"></i>
+            <button id="logoutButton"><i class="bx bx-log-out" id="log-out"></i></button>
         </div>
     </div>
     <div class="home-body">
@@ -111,6 +111,10 @@
     </div>
 </main>
 <script>
+    if (!window.localStorage.getItem("auth")) {
+        window.open("login.html", "_self");
+    }
+
     document.getElementById('saveForm').addEventListener("click", () => {
         var formData = new FormData(document.querySelector('form'));
         var encData = Object.fromEntries(formData.entries());
@@ -118,6 +122,7 @@
         var fetchOptions = {
             method: 'POST',
             headers: {
+                "Authorization": localStorage.getItem("auth"),
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(encData)
@@ -132,6 +137,11 @@
                     window.alert("error");
                 }
             })
+    })
+
+    document.getElementById('logoutButton').addEventListener("click", () => {
+        localStorage.removeItem("auth");
+        window.open("login.html", "_self");
     })
 </script>
 </body>
