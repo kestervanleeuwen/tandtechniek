@@ -46,4 +46,14 @@ public class KlantController {
         }
         return ResponseEntity.ok(klant);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Opdracht> deleteKlant(@PathVariable int id) {
+        Klant klant = klantService.getKlantById(id);
+        if (klant == null) {
+            return new ResponseEntity("klant met id: " + id + " niet gevonden", HttpStatus.NOT_FOUND);
+        }
+        klantService.deleteKlant(id);
+        return new ResponseEntity("Opdracht verwijderd", HttpStatus.OK);
+    }
 }

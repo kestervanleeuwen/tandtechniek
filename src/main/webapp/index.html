@@ -8,6 +8,7 @@
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link href="http://fonts.cdnfonts.com/css/tisa-sans-pro" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="/js/index.js" defer></script>
 
     </script>
@@ -45,7 +46,7 @@
                     <span class="tooltip">Opdracht types</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="klanten.html">
                         <i class='bx bx-user'></i>
                         <span class="sidebar-link">Klanten</span>
                     </a>
@@ -74,9 +75,17 @@
         </div>
     </main>
 <script>
-    if (!window.localStorage.getItem("auth")) {
+    if (!window.localStorage.getItem("auth") || isTokenExpired(window.localStorage.getItem("auth"))) {
+        localStorage.removeItem("auth");
         window.open("login.html", "_self");
     }
+
+    function isTokenExpired(token) {
+        const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+        console.log(expiry);
+        return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+    }
+
 
     document.getElementById('logoutButton').addEventListener("click", () => {
         localStorage.removeItem("auth");

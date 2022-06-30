@@ -7,24 +7,6 @@
     font-weight: 500;
 }
 
-.newopdracht-div .newopdracht {
-    position: sticky;
-    left: 1100px;
-    border-radius: 8px;
-    background-color: #333333;
-    color: white;
-    padding: 4px;
-    border-width: 5px;
-    border-color: #77D22D;
-    transition: all 0.5s ease;
-    cursor: pointer;
-}
-
-.newopdracht-div .newopdracht:hover {
-    background-color: white;
-    color: #333333;
-}
-
 .finished-div, .todo-div {
     background-color: white;
     padding: 20px;

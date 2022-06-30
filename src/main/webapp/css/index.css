@@ -94,8 +94,9 @@ body {
     padding: 7px 15px;
     z-index: 99;
     background-color: #333333;
-    width: 60px;
+    width: 5.625em;
     height: 100%;
+
     transition: all 0.5s ease;
 }
 
@@ -229,6 +230,14 @@ body {
 }
 
 .sidebar.active ~ .home-body {
-    width: calc(100% - 265px);
-    left: 265px;
+    width: calc(100% - 235px);
+    left: 235px;
+}
+
+.btn-primary {
+    background-color: #77D22D !important;
+    border-color: #77D22D !important;
+    position: sticky !important;
+    left: 1100px !important;
+    cursor: pointer !important;
 }
