@@ -158,6 +158,8 @@
 </div>
 
 <script>
+    const apiUrl = "https://tandtechniek.herokuapp.com:443"
+
     if (!window.localStorage.getItem("auth") || isTokenExpired(window.localStorage.getItem("auth"))) {
         localStorage.removeItem("auth");
         window.open("login.html", "_self");
@@ -182,7 +184,7 @@
             }
         }
 
-        fetch('http://localhost:8080/klant', fetchOptions)
+        fetch(apiUrl + '/klant/', fetchOptions)
             .then((res) => {
                 return res.json();
             }).then((data) => {
@@ -204,7 +206,7 @@
             }
         }
 
-        fetch("http://localhost:8080/opdracht/" + opdrachtNummer, fetchOptions)
+        fetch(apiUrl + "/opdracht/" + opdrachtNummer, fetchOptions)
             .then(response => Promise.all([response.status, response.json()]))
             .then(function ([status, myJson]) {
                 if (status == 200) {
@@ -255,7 +257,7 @@
             },
             body: stringifiedObj
         }
-        fetch('http://localhost:8080/opdracht/update', fetchOptions)
+        fetch(apiUrl + '/opdracht/update/', fetchOptions)
             .then((res) => {
                 if(Date.parse(newObj.startDatum) > Date.parse(newObj.eindDatum)) {
                     throw new Error("startDatum kan niet na eindDatum zijn.")
@@ -281,7 +283,7 @@
             }
         }
 
-        fetch('http://localhost:8080/opdracht/finish/' + opdrachtNummer, fetchOptions)
+        fetch(apiUrl + '/finish/' + opdrachtNummer, fetchOptions)
             .then((res) => {
                 if (res.status == 201) {
                     location.href = "opdrachten.html";
@@ -305,7 +307,7 @@
             }
         }
 
-        fetch('http://localhost:8080/opdracht/' + opdrachtNummer, fetchOptions)
+        fetch(apiUrl + '/opdracht/' + opdrachtNummer, fetchOptions)
             .then((res) => {
                 if (res.status == 200) {
                     console.log("success");

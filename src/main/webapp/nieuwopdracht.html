@@ -111,6 +111,8 @@
     </div>
 </main>
 <script>
+    const apiUrl = "https://tandtechniek.herokuapp.com:443"
+
     if (!window.localStorage.getItem("auth") || isTokenExpired(window.localStorage.getItem("auth"))) {
         localStorage.removeItem("auth");
         window.open("login.html", "_self");
@@ -130,7 +132,7 @@
             }
         }
 
-        fetch('https://tandtechniek.herokuapp.com:443/klant', fetchOptions)
+        fetch(apiUrl + '/klant/', fetchOptions)
             .then((res) => {
                 return res.json();
             }).then((data) => {
@@ -160,7 +162,7 @@
             body: stringifiedData
         }
 
-        fetch('https://tandtechniek.herokuapp.com:443/opdracht', fetchOptions)
+        fetch(apiUrl + '/opdracht/', fetchOptions)
             .then((res) => {
                 if (res.status == 201) {
                     window.alert("Opdracht aangemaakt. Je keert nu terug naar het opdrachten scherm.");

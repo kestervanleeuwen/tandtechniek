@@ -96,6 +96,8 @@
     </div>
 </main>
 <script>
+    const apiUrl = "https://tandtechniek.herokuapp.com:443"
+
     if (!window.localStorage.getItem("auth")) {
         window.open("login.html", "_self");
     }
@@ -111,7 +113,7 @@
         }
     }
 
-    fetch('https://tandtechniek.herokuapp.com:443/opdracht/', fetchOptions)
+    fetch(apiUrl + '/opdracht/', fetchOptions)
     .then((res) => {
         return res.json();
     }).then((data) => {

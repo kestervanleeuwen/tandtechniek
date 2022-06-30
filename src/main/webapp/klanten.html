@@ -141,6 +141,8 @@
     </div>
 </main>
 <script>
+    const apiUrl = "https://tandtechniek.herokuapp.com:443"
+
     if (!window.localStorage.getItem("auth") || isTokenExpired(window.localStorage.getItem("auth"))) {
         localStorage.removeItem("auth");
         window.open("login.html", "_self");
@@ -171,7 +173,7 @@
             body: JSON.stringify(encData)
         }
 
-        fetch('http://localhost:8080/klant', fetchOptions)
+        fetch(apiUrl + '/klant/', fetchOptions)
             .then((res) => {
                 if (res.status == 201) {
                     $('#klantenModal').modal('hide');
@@ -190,7 +192,7 @@
             }
         }
 
-        fetch('http://localhost:8080/klant/' + klantId, fetchOptions)
+        fetch(apiUrl + '/klant/' + klantId + '/', fetchOptions)
             .then((res) => {
                 if (res.status == 200) {
                     console.log("success");
@@ -213,7 +215,7 @@
             }
         }
 
-        fetch('http://localhost:8080/klant', fetchOptions)
+        fetch(apiUrl + '/klant/', fetchOptions)
             .then((res) => {
                 return res.json();
             }).then((data) => {
