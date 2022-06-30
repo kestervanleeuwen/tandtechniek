@@ -26,7 +26,7 @@ import java.util.Arrays;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "https://tandtechniek.herokuapp.com:443")
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements ApplicationContextAware {
     public final static String LOGIN_PATH = "/login";
     public final static String REGISTER_PATH = "/register";

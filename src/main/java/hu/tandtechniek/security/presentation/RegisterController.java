@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/register")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "https://tandtechniek.herokuapp.com:443")
 public class RegisterController {
     private final UserService userService;
 
