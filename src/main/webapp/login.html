@@ -48,8 +48,9 @@
                 body: JSON.stringify(encData)
             }
 
-            fetch(apiUrl + "/login/", fetchOptions)
+            fetch("https://tandtechniek.herokuapp.com:443/login", fetchOptions)
                 .then(function(response) {
+                    console.log(encData);
                     if (response.status == 200  ) {
                         localStorage.setItem("auth", response.headers.get("authorization"));
                         window.open("index.html", "_self")
