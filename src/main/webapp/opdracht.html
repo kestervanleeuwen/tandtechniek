@@ -264,6 +264,7 @@
                 }
 
                 if (res.status == 201) {
+                    console.log(newObj);
                     location.href = "opdrachten.html";
                     setTimeout(function (){window.location.reload(true);},100)
                 } else {
@@ -283,7 +284,7 @@
             }
         }
 
-        fetch(apiUrl + '/finish/' + opdrachtNummer, fetchOptions)
+        fetch(apiUrl + '/opdracht/finish/' + opdrachtNummer, fetchOptions)
             .then((res) => {
                 if (res.status == 201) {
                     location.href = "opdrachten.html";
