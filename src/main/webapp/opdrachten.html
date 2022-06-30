@@ -96,15 +96,8 @@
     </div>
 </main>
 <script>
-    if (!window.localStorage.getItem("auth") || isTokenExpired(window.localStorage.getItem("auth"))) {
-        localStorage.removeItem("auth");
+    if (!window.localStorage.getItem("auth")) {
         window.open("login.html", "_self");
-    }
-
-    function isTokenExpired(token) {
-        const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
-        console.log(expiry);
-        return (Math.floor((new Date).getTime() / 1000)) >= expiry;
     }
 
     const todoList = document.querySelector('.todo-list');
