@@ -1,5 +1,12 @@
+
 let menuButton = document.querySelector("#menu");
 let sidebar = document.querySelector(".sidebar");
+
+if (localStorage.getItem("sidebar") == "active") {
+    sidebar.classList.toggle("active");
+    sidebar.classList.toggle("delayedActive");
+    sidebar.classList.add("notransition");
+}
 
 menuButton.onclick = function () {
     sidebar.classList.toggle("active");
@@ -8,6 +15,7 @@ menuButton.onclick = function () {
     } else {
         localStorage.setItem("sidebar", "inactive")
     }
+    sidebar.classList.remove("notransition");
 
     if (sidebar.classList.contains("delayedActive")) {
         sidebar.classList.toggle("delayedActive")

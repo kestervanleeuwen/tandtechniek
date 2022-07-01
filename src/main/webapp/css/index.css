@@ -150,6 +150,7 @@ body {
 .sidebar .profile-body {
     position: absolute;
     color: white;
+    transform: translateY(15%);
     bottom: 0;
     left: 0;
     width: 100%;
@@ -238,6 +239,18 @@ body {
     background-color: #77D22D !important;
     border-color: #77D22D !important;
     position: sticky !important;
-    left: 1100px !important;
+    left: 80% !important;
     cursor: pointer !important;
+}
+
+.modal-header {
+    background-color: #333333;
+    color: white;
+}
+
+.notransition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
 }
