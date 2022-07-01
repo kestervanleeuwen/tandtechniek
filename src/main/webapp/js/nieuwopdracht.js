@@ -1,4 +1,4 @@
-const apiUrl = "https://tandtechniek.herokuapp.com:443"
+const apiUrl = "http://localhost:8080"
 
 function getKlanten() {
     var fetchOptions = {
@@ -10,6 +10,7 @@ function getKlanten() {
 
     fetch(apiUrl + '/klant/', fetchOptions)
         .then((res) => {
+            console.log(res);
             return res.json();
         }).then((data) => {
         let klantSelect = document.getElementById('klant-select');
@@ -22,7 +23,7 @@ function getKlanten() {
         })
 }
 
-document.getElementById('saveForm').addEventListener("click", () => {
+document.getElementById('saveFormExtra').addEventListener("click", () => {
     var formData = new FormData(document.querySelector('form'));
     var encData = Object.fromEntries(formData.entries());
     var stringifiedData = JSON.stringify(encData);
