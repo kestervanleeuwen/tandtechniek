@@ -82,6 +82,21 @@ form #saveForm {
     cursor: pointer;
 }
 
+form #saveFormExtra {
+    margin-left: 550px;
+    border-radius: 8px;
+    transform: translateY(30%);
+    background-color: #77D22D;
+    color: white;
+    padding: 4px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-width: 5px;
+    border-color: #77D22D;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
 .opdracht-container #deleteButton {
     position: relative;
     margin-left: 50px;
