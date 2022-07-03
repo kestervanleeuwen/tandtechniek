@@ -1,4 +1,4 @@
-const apiUrl = "https://tandtechniek.herokuapp.com:443";
+const apiUrl = "http://localhost:8080"
 
 function getKlanten() {
     var fetchOptions = {
@@ -28,7 +28,6 @@ document.getElementById('saveFormExtra').addEventListener("click", () => {
     var encData = Object.fromEntries(formData.entries());
     var stringifiedData = JSON.stringify(encData);
     stringifiedData.klantId = document.getElementById('klant-select').value;
-    console.log(stringifiedData);
 
     var fetchOptions = {
         method: 'POST',

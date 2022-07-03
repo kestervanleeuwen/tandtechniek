@@ -1,0 +1,130 @@
+.opdrachttype-container {
+    background-color: white;
+    max-width: 700px;
+    width: 100%;
+    padding-left: 50px;
+    border-radius: 7px;
+}
+
+.opdrachttype-container .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 30px;
+}
+
+.opdrachttype-container form .opdrachttype-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+form .opdrachttype-details .input-box {
+    margin: 15px 0 10px 0;
+    width: 33%;
+}
+
+#input-voorraad {
+    width: 70% !important;
+}
+
+.opdrachttype-details .input-box .details {
+    display: block;
+    font-weight: 400;
+    margin-bottom: 5px ;
+}
+
+.opdrachttype-details .input-box input, .opdrachttype-details .input-box select {
+    height:  50px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 5px;
+    font-size: 15px;
+}
+
+.opdrachttype-details .input-box input:focus {
+    border-color: #77D22D;
+}
+
+.opdrachttype-details .input-box input:valid {
+    border-color: #77D22D;
+}
+
+form .button {
+    padding: 5px;
+}
+
+form #saveForm {
+    margin-left: 550px;
+    border-radius: 8px;
+    transform: translateY(95%);
+    background-color: #77D22D;
+    color: white;
+    padding: 4px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-width: 5px;
+    border-color: #77D22D;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.opdrachttype-container #deleteButton {
+    position: relative;
+    margin-left: 50px;
+    border-radius: 8px;
+    background-color: red;
+    color: white;
+    padding: 4px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-width: 5px;
+    border-color: red;
+    cursor: pointer;
+}
+
+.opdrachttype-container #finishButton {
+    position: relative;
+    margin-left: 120px;
+    border-radius: 8px;
+    background-color: dodgerblue;
+    color: white;
+    padding: 4px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-width: 5px;
+    border-color: dodgerblue;
+    cursor: pointer;
+}
+
+.opdrachttype-body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.opdrachttype-div {
+    background-color: white;
+    padding: 20px;
+    max-width: 700px;
+    width: 100%;
+    border-radius: 7px;
+}
+
+.opdrachttype-list button {
+    background-color: #555555;
+    border: 1.5px solid black;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 100%;
+    display: block;
+    margin-bottom: 1px;
+}

@@ -27,7 +27,8 @@ public class OpdrachtController {
                 opdrachtDTO.startDatum,
                 opdrachtDTO.eindDatum,
                 opdrachtDTO.klantId,
-                opdrachtDTO.tandtechnicusId
+                opdrachtDTO.tandtechnicusId,
+                opdrachtDTO.opdrachtTypeId
         );
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -41,7 +42,8 @@ public class OpdrachtController {
                 opdrachtDTO.startDatum,
                 opdrachtDTO.eindDatum,
                 opdrachtDTO.klantId,
-                opdrachtDTO.tandtechnicusId
+                opdrachtDTO.tandtechnicusId,
+                opdrachtDTO.opdrachtTypeId
         );
         return new ResponseEntity(HttpStatus.CREATED);
     }

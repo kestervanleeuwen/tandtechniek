@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qua Klanten</title>
+    <title>Qua Voorraad</title>
     <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/klanten.css">
+    <link rel="stylesheet" href="/css/voorraad.css">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.cdnfonts.com/css/tisa-sans-pro" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.css">
     <script type="text/javascript" src="/js/index.js" defer></script></script>
-    <script type="text/javascript" src="/js/klanten.js" defer></script></script>
+    <script type="text/javascript" src="/js/voorraad.js" defer></script></script>
 </head>
 <body>
 <main>
@@ -72,70 +70,48 @@
             <button id="logoutButton"><i class="bx bx-log-out" id="log-out"></i></button>
         </div>
     </div>
-
     <div class="home-body">
-        <h1>Klanten</h1>
-        <button id="addKlantenButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#klantenModal">
-            Klant toevoegen <i class='bx bxs-plus-circle'></i>
+        <h1>Voorraad</h1>
+        <button id="addVoorraadModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#voorraadModal">
+            Voorraad toevoegen <i class='bx bxs-plus-circle'></i>
         </button>
-        <div class="klanten-table-div">
-            <table class="table table-borderless table-striped" id="klantenTable"></table>
+
+        <div class="voorraad-body">
         </div>
     </div>
     <!--Modals-->
-    <div class="modal fade" id="klantenModal" tabindex="-1" role="dialog" aria-labelledby="klantenModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="voorraadModal" tabindex="-1" role="dialog" aria-labelledby="voorraadModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="klantenModalLabel">Nieuwe klant</h5>
+                    <h5 class="modal-title" id="voorraadModalLabel">Nieuwe Voorraad Item</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="klant-container">
-                        <form id="nieuw-klant">
-                            <div class="klant-details">
+                    <div class="voorraad-container-form">
+                        <form id="nieuw-voorraad">
+                            <div class="voorraad-details">
                                 <div class="input-box">
-                                    <span class="details">Voornaam</span>
-                                    <input type="select" name="voornaam" placeholder="Voornaam" required>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Achternaam</span>
-                                    <input type="text" name="achternaam" placeholder="Achternaam" required>
+                                    <span class="details">Naam</span>
+                                    <input type="select" name="voorraadNaam" placeholder="Naam" required>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">Bedrijfsnaam</span>
-                                    <input type="text" name="bedrijfsnaam" placeholder="Bedrijfsnaam" required>
-                                </div>
-                                <div class="input-box" id="input-grow-1">
-                                    <span class="details">Email</span>
-                                    <input type="email" name="email" placeholder="Email" required>
-                                </div>
-                                <div class="input-box" id="input-grow-2">
-                                    <span class="details">Telefoonnummer</span>
-                                    <input type="tel" name="telefoon" placeholder="Telefoonnummer" required>
+                                    <span class="details">Prijs</span>
+                                    <input type="text" name="prijs" placeholder="Prijs" required>
                                 </div>
                                 <div class="input-box">
-                                    <span class="details">Plaats</span>
-                                    <input type="text" name="plaats" placeholder="Plaats" required>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Adres</span>
-                                    <input type="text" name="adres" placeholder="Adres" required>
-                                </div>
-                                <div class="input-box">
-                                    <span class="details">Postcode</span>
-                                    <input type="text" name="postcode" placeholder="Postcode    " required>
+                                    <span class="details">In voorraad</span>
+                                    <input type="number" min="0" name="inVoorraad" placeholder="In voorraad" required>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button form="nieuw-klant" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="addKlantButton" class="btn btn-primary">Add klant</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button form="nieuw-voorraad" type="button" id="addVoorraadButton" class="btn btn-primary">Add opdracht type</button>
                 </div>
             </div>
         </div>
@@ -148,6 +124,5 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script>
-
 </body>
 </html>

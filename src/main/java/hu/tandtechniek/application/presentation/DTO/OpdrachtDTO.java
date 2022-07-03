@@ -1,6 +1,7 @@
 package hu.tandtechniek.application.presentation.DTO;
 
 import java.util.Date;
+import java.util.List;
 
 public class OpdrachtDTO {
     public int opdrachtNummer;
@@ -10,4 +11,5 @@ public class OpdrachtDTO {
     public Date eindDatum;
     public int klantId;
     public int tandtechnicusId;
+    public int opdrachtTypeId;
 }

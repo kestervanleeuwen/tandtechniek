@@ -35,9 +35,8 @@ public class Opdracht {
     @ManyToOne
     @JoinColumn(name = "klant_id")
     private Klant klant;
-    @OneToMany
-    @JsonIgnore
-    private List<OpdrachtType> opdrachtTypes;
+    @OneToOne
+    private OpdrachtType opdrachtType;
     @ManyToOne
     @JoinColumn(name = "tandtechnicus_id")
     private Tandtechnicus tandtechnicus;
@@ -54,12 +53,11 @@ public class Opdracht {
 
     public void berekenTotaalKosten() {
         int nieuwTotaalKosten = 0;
-        for (OpdrachtType opdrachtType : opdrachtTypes) {
-            nieuwTotaalKosten += opdrachtType.getUrenNodig() * tandtechnicus.getSalarisPerUur();
+            nieuwTotaalKosten = opdrachtType.getUrenNodig() * tandtechnicus.getSalarisPerUur();
             for (Voorraad voorraad : opdrachtType.getVoorraad()) {
                 nieuwTotaalKosten += voorraad.getPrijs() * voorraad.getAantal();
             }
-        }
+
          totaalKosten = nieuwTotaalKosten;
     }
 
@@ -73,13 +71,10 @@ public class Opdracht {
 
     public void finishOpdracht() {
         status = "closed";
-        if (opdrachtTypes.size() > 0) {
-            for (OpdrachtType opdrachtType : opdrachtTypes) {
-                for (Voorraad voorraad : opdrachtType.getVoorraad()) {
-                    voorraad.setInVoorraad(voorraad.getInVoorraad() - voorraad.getAantal());
-                }
-            }
+        for (Voorraad voorraad : opdrachtType.getVoorraad()) {
+            voorraad.setInVoorraad(voorraad.getInVoorraad() - voorraad.getAantal());
         }
+
     }
 
 

@@ -30,14 +30,12 @@ class OpdrachtTest {
 
         opdrachtType = new OpdrachtType("OpdrachtTypeNaam", "Beschrijving", 10);
         opdrachtType.setVoorraad(voorraadLijst);
-        List<OpdrachtType> opdrachtLijst = new ArrayList<OpdrachtType>();
-        opdrachtLijst.add(opdrachtType);
 
         opdracht = new Opdracht("opdrachtTest", "Dit is een test");
 
         opdracht.setTandtechnicus(tandtechnicus);
         opdracht.setKlant(klant);
-        opdracht.setOpdrachtTypes(opdrachtLijst);
+        opdracht.setOpdrachtType(opdrachtType);
 
     }
 
