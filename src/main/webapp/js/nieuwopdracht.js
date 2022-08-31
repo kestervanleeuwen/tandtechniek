@@ -23,6 +23,29 @@ function getKlanten() {
         })
 }
 
+function getVoorraadType() {
+    var fetchOptions = {
+        method: 'GET',
+        headers: {
+            "Authorization": localStorage.getItem("auth"),
+        }
+    }
+
+    fetch(apiUrl + '/opdrachtType/', fetchOptions)
+        .then((res) => {
+            return res.json();
+        }).then((data) => {
+        let opdrachtTypeSelect = document.getElementById('opdrachttype-select');
+        console.log(data);
+        data.forEach((opdrachtType) => {
+            opdrachtTypeSelect.options.add(new Option(opdrachtType.opdrachtTypeNaam, opdrachtType.opdrachtTypeNummer));
+        })
+    })
+        .catch(function (e) {
+            console.log(e);
+        })
+}
+
 document.getElementById('saveFormExtra').addEventListener("click", () => {
     var formData = new FormData(document.querySelector('form'));
     var encData = Object.fromEntries(formData.entries());
@@ -51,3 +74,4 @@ document.getElementById('saveFormExtra').addEventListener("click", () => {
 })
 
 getKlanten();
+getVoorraadType();
