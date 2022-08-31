@@ -1,9 +1,8 @@
-const apiUrl = "https://tandtechniek.herokuapp.com:443"
+const apiUrl = "http://localhost:8080"
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const opdrachtNummer = urlParams.get('opdrachtNummer');
-
 
 function getKlanten() {
     var fetchOptions = {
@@ -19,7 +18,30 @@ function getKlanten() {
         }).then((data) => {
         let klantSelect = document.getElementById('klant-select');
         data.forEach((klant) => {
-            klantSelect.options.add(new Option(klant.voornaam + " " + klant.achternaam + ", " + klant.bedrijfsnaam , klant.klantId))
+            klantSelect.options.add(new Option(klant.voornaam + " " + klant.achternaam + ", " + klant.bedrijfsnaam, klant.klantId))
+        })
+    })
+        .catch(function (e) {
+            console.log(e);
+        })
+}
+
+function getVoorraadType() {
+    var fetchOptions = {
+        method: 'GET',
+        headers: {
+            "Authorization": localStorage.getItem("auth"),
+        }
+    }
+
+    fetch(apiUrl + '/opdrachtType/', fetchOptions)
+        .then((res) => {
+            return res.json();
+        }).then((data) => {
+        let opdrachtTypeSelect = document.getElementById('opdrachttype-select');
+        console.log(data);
+        data.forEach((opdrachtType) => {
+            opdrachtTypeSelect.options.add(new Option(opdrachtType.opdrachtTypeNaam, opdrachtType.opdrachtTypeNummer));
         })
     })
         .catch(function (e) {
@@ -49,6 +71,7 @@ function getOpdracht() {
                     document.getElementById('input-omschrijving').disabled = true;
                     document.getElementById('input-opdrachtNaam').disabled = true;
                     document.getElementById('klant-select').disabled = true;
+                    document.getElementById('opdrachttype-select').disabled = true;
 
                 }
                 const startDatum = new Date(myJson.startDatum).toISOString().split('T')[0].slice(0, 10);
@@ -56,10 +79,6 @@ function getOpdracht() {
 
                 document.getElementById("input-opdrachtNaam").value = myJson.opdrachtNaam;
                 document.getElementById("input-omschrijving").value = myJson.omschrijving;
-
-                if (myJson.klant.klantId) {
-                    document.getElementById('klant-select').value = myJson.klant.klantId;
-                }
 
                 if (myJson.startDatum != null && myJson.eindDatum != null) {
                     document.getElementById("input-startDatum").value = startDatum;
@@ -77,7 +96,6 @@ document.getElementById('saveForm').addEventListener("click", () => {
     var encData = Object.fromEntries(formData.entries());
     let newObj = {"opdrachtNummer":opdrachtNummer, ...encData};
     let stringifiedObj = JSON.stringify(newObj);
-
     var fetchOptions = {
         method: 'POST',
         headers: {
@@ -93,7 +111,6 @@ document.getElementById('saveForm').addEventListener("click", () => {
             }
 
             if (res.status == 201) {
-                console.log(newObj);
                 location.href = "opdrachten.html";
                 setTimeout(function (){window.location.reload(true);},100)
             } else {
@@ -150,5 +167,35 @@ document.getElementById("confirmDeleteButton").addEventListener("click", () => {
         })
 })
 
+
+function testApiCall() {
+    var fetchOptions = {
+        method: 'GET',
+        headers: {
+            "Authorization": localStorage.getItem("auth"),
+        }
+    }
+
+    fetch(apiUrl + "/opdracht/" + opdrachtNummer, fetchOptions)
+        .then(response => Promise.all([response.status, response.json()]))
+        .then(function ([status, myJson]) {
+            if (status == 200) {
+
+                if (myJson.klant) {
+                    document.getElementById("klant-select").value = myJson.klant.klantId;
+                }
+
+                if (myJson.opdrachtType) {
+                    document.getElementById("opdrachttype-select").value = myJson.opdrachtType.opdrachtTypeNummer;
+                }
+
+            } else {
+                console.log("status was " + status)
+            }
+        }).catch(error => console.log(error.message));
+}
+
 getKlanten();
+getVoorraadType();
 getOpdracht();
+testApiCall();

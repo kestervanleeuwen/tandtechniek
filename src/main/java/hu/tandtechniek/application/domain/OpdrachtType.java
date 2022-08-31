@@ -21,7 +21,7 @@ public class OpdrachtType {
     private String beschrijving;
     @Column
     private int urenNodig;
-    @OneToMany
+    @ManyToMany
     private List<Voorraad> voorraad;
 
     public OpdrachtType(String opdrachtTypeNaam, String beschrijving, int urenNodig) {

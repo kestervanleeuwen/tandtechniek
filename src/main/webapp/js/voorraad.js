@@ -1,4 +1,4 @@
-const apiUrl = "https://tandtechniek.herokuapp.com:443"
+const apiUrl = "http://localhost:8080"
 
 document.getElementById('addVoorraadButton').addEventListener("click", () => {
     var formData = new FormData(document.querySelector('form'));

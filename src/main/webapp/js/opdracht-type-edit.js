@@ -1,6 +1,11 @@
 const apiUrl = "http://localhost:8080"
 
-document.getElementById('addOpdrachttypeButton').addEventListener("click", () => {
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const opdrachtTypeNummer = urlParams.get('opdrachtTypeNummer');
+
+
+document.getElementById('saveOpdrachttypeButton').addEventListener("click", () => {
     var formData = new FormData(document.querySelector('form'));
     var encData = Object.fromEntries(formData.entries());
 
@@ -8,8 +13,10 @@ document.getElementById('addOpdrachttypeButton').addEventListener("click", () =>
     $('#opdrachtTypeTable').bootstrapTable('getData').forEach((data) => {
         voorraadIds.push(data.voorraadId);
     });
+    encData.opdrachtTypeNummer = opdrachtTypeNummer;
     encData.voorraadIds = voorraadIds;
     var stringifiedData = JSON.stringify(encData);
+
     var fetchOptions = {
         method: 'POST',
         headers: {
@@ -19,14 +26,35 @@ document.getElementById('addOpdrachttypeButton').addEventListener("click", () =>
         body: stringifiedData
     }
 
-    fetch(apiUrl + '/opdrachtType/', fetchOptions)
+    fetch(apiUrl + '/opdrachtType/update', fetchOptions)
         .then((res) => {
             if (res.status == 201) {
-                $('#klantenModal').modal('hide');
-                setTimeout(function (){window.location.reload(true);},100)
+                window.open("opdrachttype.html", "_self");
+            } else {
+                window.alert("error");
+                console.log(res.status);
+            }
+        })
+})
+
+document.getElementById("deleteOpdrachttypeButton").addEventListener("click", () => {
+    var fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            "Authorization": localStorage.getItem("auth"),
+        }
+    }
+
+    fetch(apiUrl + '/opdrachtType/' + opdrachtTypeNummer, fetchOptions)
+        .then((res) => {
+            if (res.status == 200) {
+                console.log("success");
             } else {
                 window.alert("error");
             }
+        }).then(window.open("opdrachttype.html", "_self"))
+        .catch(function (e) {
+            console.log(e);
         })
 })
 
@@ -42,21 +70,45 @@ document.getElementById('addVoorraadButton').addEventListener("click", () => {
 
     fetch(apiUrl + '/voorraad/' + selectValue, fetchOptions)
         .then(response => Promise.all([response.status, response.json()]))
-                .then(function ([status, myJson]) {
-                    if (status == 200) {
-                        let geofees = $('#opdrachtTypeTable').bootstrapTable('getData');
-                        $('#opdrachtTypeTable').bootstrapTable('insertRow', {
-                            index: geofees.length,
-                            row: myJson
-                        });
-                    } else {
-                        console.log("status was " + status)
-                    }
-                }).catch(error => console.log(error.message));
+        .then(function ([status, myJson]) {
+            if (status == 200) {
+                let geofees = $('#opdrachtTypeTable').bootstrapTable('getData');
+                $('#opdrachtTypeTable').bootstrapTable('insertRow', {
+                    index: geofees.length,
+                    row: myJson
+                });
+            } else {
+                console.log("status was " + status)
+            }
+        }).catch(error => console.log(error.message));
 });
 
+function getOpdracht() {
+    var fetchOptions = {
+        method: 'GET',
+        headers: {
+            "Authorization": localStorage.getItem("auth"),
+        }
+    }
+
+    fetch(apiUrl + "/opdrachtType/" + opdrachtTypeNummer, fetchOptions)
+        .then(response => Promise.all([response.status, response.json()]))
+        .then(function ([status, myJson]) {
+            if (status == 200) {
+                console.log(myJson);
+                $('#opdrachtTypeTable').bootstrapTable('load', myJson.voorraad);
+                document.getElementById("input-opdrachtTypeNaam").value = myJson.opdrachtTypeNaam;
+                document.getElementById("input-beschrijving").value = myJson.beschrijving;
+                document.getElementById("input-urenNodig").value = myJson.urenNodig;
+
+            } else {
+                console.log("status was " + status)
+            }
+        }).catch(error => console.log(error.message));
+}
+
 $('#opdrachtTypeTable').bootstrapTable({
-    pagination: true,
+    pagination: false,
     pageSize: 10,
     columns: [{
         field: 'voorraadId',
@@ -85,40 +137,6 @@ function deleteOpdrachtTypeRow(id) {
     $('#opdrachtTypeTable').bootstrapTable('removeByUniqueId', id);
 }
 
-function getOpdrachtType() {
-    var fetchOptions = {
-        method: 'GET',
-        headers: {
-            "Authorization": localStorage.getItem("auth"),
-        }
-    }
-
-    fetch(apiUrl + '/opdrachtType/', fetchOptions)
-        .then((res) => {
-            return res.json();
-        }).then((data) => {
-            data.forEach((opdrachtTypeData) => {
-                let button = document.createElement('BUTTON');
-                let opdrachtTypeNaam = document.createElement('span');
-                let listDiv = document.querySelector(".opdrachttype-list");
-                opdrachtTypeNaam.innerHTML = `ID: ${opdrachtTypeData.opdrachtTypeNummer}: ${opdrachtTypeData.opdrachtTypeNaam}`;
-
-
-                button.appendChild(opdrachtTypeNaam);
-                listDiv.appendChild(button);
-                button.addEventListener("click", () => {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    urlParams.set("opdrachtTypeNummer", opdrachtTypeData.opdrachtTypeNummer);
-
-                    window.open("opdracht-type-edit.html?" + urlParams, "_self");
-                });
-            })
-    })
-        .catch(function (e) {
-            console.log(e);
-        })
-}
-
 function fillVoorraad() {
     var fetchOptions = {
         method: 'GET',
@@ -142,4 +160,4 @@ function fillVoorraad() {
 }
 
 fillVoorraad();
-getOpdrachtType();
+getOpdracht();
