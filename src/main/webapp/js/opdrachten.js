@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:8080"
+const apiUrl = "https://tandtechniek.herokuapp.com:443"
 const todoList = document.querySelector('.todo-list');
 const finishedList = document.querySelector('.finished-list');
 const list = document.createDocumentFragment();
